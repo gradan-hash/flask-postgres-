@@ -46,10 +46,16 @@ def submit():
         rating = request.form['radio']
         comments = request.form['comments']
 
-        if customer == "" or dealer == "" or dealer == "" or comments:
+        if customer == "" or dealer == "" or rating == "" or comments == "":
             return render_template("index.html", message="Please all fields are reuired. Please")
-        print(customer, dealer, rating, comments)
-        return render_template('success.html')
+
+        if db.session.query[Feedback].filter(Feedback.customer == customer).count() == 0:
+            data = Feedback(customer, dealer, rating, comments)
+            db.session.add(data)
+            db.sesssion.commit()
+
+            return render_template('success.html')
+        return render_template("index.html", message="You have already submited feedback")
 
 
 if __name__ == "__main__":
