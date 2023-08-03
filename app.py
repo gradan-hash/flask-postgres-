@@ -1,7 +1,23 @@
 from flask import Flask, request, render_template
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
+ENV = 'dev'
+debug = True
+
+if ENV == 'dev':
+    app.debug = True
+    app.config['SQLALCHEMY_DATABASE_URL'] = 'postresql://postgres:corne2001nyaa?@localhost/Lambo'
+else:
+    app.debug = False
+    app.config['SQLALCHEMY_DATABASE_URL'] = ''
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
+
+class
 
 @app.route("/")
 def index():
@@ -24,4 +40,4 @@ def submit():
 
 if __name__ == "__main__":
 
-    app.run(debug=True)
+    app.run()
