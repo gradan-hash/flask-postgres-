@@ -1,3 +1,4 @@
+from flask import jsonify
 from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sendmail import send_mail
@@ -67,6 +68,17 @@ def feedback():
     # Fetch all feedback entries from the database
     feedback_data = Feedback.query.all()
     return render_template("feedback.html", feedback_data=feedback_data)
+
+
+@app.route("/feedback/<int:feedback_id>")
+def get_feedback_by_id(feedback_id):
+    feedback_entry = Feedback.query.get(feedback_id)
+    if feedback_entry:
+        # Assuming you have a serialize method
+        return jsonify(feedback_entry.serialize())
+    return jsonify({"message": "Feedback entry not found"}), 404
+
+
 
 
 if __name__ == "__main__":
