@@ -1,5 +1,7 @@
 from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
+from sendmail import send_mail
+
 
 app = Flask(__name__)
 
@@ -47,15 +49,24 @@ def submit():
         comments = request.form['comments']
 
         if customer == "" or dealer == "" or rating == "" or comments == "":
-            return render_template("index.html", message="Please all fields are reuired. Please")
+            return render_template("index.html", message="Please all fields are reqired. Please")
 
-        if db.session.query[Feedback].filter(Feedback.customer == customer).count() == 0:
+        if db.session.query(Feedback).filter(Feedback.customer == customer).count() == 0:
+
             data = Feedback(customer, dealer, rating, comments)
             db.session.add(data)
-            db.sesssion.commit()
+            db.session.commit()
+            send_mail(customer, dealer, rating, comments)
 
             return render_template('success.html')
         return render_template("index.html", message="You have already submited feedback")
+
+
+@app.route("/feedback")
+def feedback():
+    # Fetch all feedback entries from the database
+    feedback_data = Feedback.query.all()
+    return render_template("feedback.html", feedback_data=feedback_data)
 
 
 if __name__ == "__main__":

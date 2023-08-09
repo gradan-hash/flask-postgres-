@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Feedback Data</title>
+  </head>
+  <body>
+    <h1>Feedback Data</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Customer</th>
+          <th>Dealer</th>
+          <th>Rating</th>
+          <th>Comments</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for feedback_entry in feedback_data %}
+        <tr>
+          <td>{{ feedback_entry.customer }}</td>
+          <td>{{ feedback_entry.dealer }}</td>
+          <td>{{ feedback_entry.rating }}</td>
+          <td>{{ feedback_entry.comments }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

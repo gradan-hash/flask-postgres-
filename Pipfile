@@ -10,6 +10,7 @@ psycopg2-binary = "*"
 sqlalchemy = "*"
 gunicorn = "*"
 flask-sqlalchemy = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
