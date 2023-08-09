@@ -1,1 +1,19 @@
-./env
+# Ignore Python virtual environments
+venv/
+env/
+*.pyc
+*.pyo
+__pycache__/
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore package-specific files
+*.egg-info/
+dist/
+build/
